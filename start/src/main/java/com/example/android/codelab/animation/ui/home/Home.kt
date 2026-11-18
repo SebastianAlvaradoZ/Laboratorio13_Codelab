@@ -310,8 +310,9 @@ private fun HomeFloatingActionButton(
                 contentDescription = null
             )
             // Toggle the visibility of the content with animation.
-            // TODO 2-1: Animate this visibility change.
-            if (extended) {
+            // TODO 2-1 (hecho): Animate this visibility change.
+            // AnimatedVisibility expande/contrae el texto "EDIT" según la dirección del scroll
+            AnimatedVisibility(extended) {
                 Text(
                     text = stringResource(R.string.edit),
                     modifier = Modifier
