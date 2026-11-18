@@ -328,10 +328,22 @@ private fun HomeFloatingActionButton(
  */
 @Composable
 private fun EditMessage(shown: Boolean) {
-    // TODO 2-2: The message should slide down from the top on appearance and slide up on
+    // TODO 2-2 (hecho): The message should slide down from the top on appearance and slide up on
     //           disappearance.
+    // Entra deslizándose desde arriba (-altura → 0) y sale hacia arriba (0 → -altura),
+    // con easings y duraciones distintas para la entrada y la salida
     AnimatedVisibility(
-        visible = shown
+        visible = shown,
+        enter = slideInVertically(
+            // Entra desde -alturaCompleta hasta 0
+            initialOffsetY = { fullHeight -> -fullHeight },
+            animationSpec = tween(durationMillis = 150, easing = LinearOutSlowInEasing)
+        ),
+        exit = slideOutVertically(
+            // Sale desde 0 hasta -alturaCompleta
+            targetOffsetY = { fullHeight -> -fullHeight },
+            animationSpec = tween(durationMillis = 250, easing = FastOutLinearInEasing)
+        )
     ) {
         Surface(
             modifier = Modifier.fillMaxWidth(),
